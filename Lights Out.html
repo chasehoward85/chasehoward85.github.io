@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Quiz</title>
+		
+		<style>
+			body {
+				top: 0;
+				left: 0;
+			}
+			
+			#steps {
+				background-color: black;
+				color: white;
+				position: absolute;
+				text-align: center;
+				display: inline-block;
+				top: 0;
+				right: 0;
+				width: 40px;
+			}
+			
+			#strip {
+				width: 300px
+			}
+			
+			#mainTab {
+				width: 600px;
+			}
+			
+			#strip table {
+				border-spacing: 0;
+			}
+			
+			#strip td {
+				border: 3px solid;
+				width: 30px;
+				height: 30px;
+			}
+			
+			td#_1 {
+				border-color: hotpink;
+			}
+			
+			#mainTab table {
+				border: 1px #dedede solid;
+				width: 600px;
+				padding: 0;
+				border-spacing: 0;
+			}
+			
+			#mainTab td {
+				border: 1px #dedede solid;
+				width: 30px;
+				height: 30px;
+			}
+			
+			.black {
+				background-color: black;
+			}
+			
+			.red {
+				background-color: red;
+			}
+			
+			.blue {
+				background-color: blue;
+			}
+			
+			.yellow {
+				background-color: yellow;
+			}
+			
+			.green {
+				background-color: green;
+			}
+			
+			.purple {
+				background-color: purple;
+			}
+			
+			.orange {
+				background-color: orange;
+			}
+			
+			.cyan {
+				background-color: cyan;
+			}
+			
+			.magenta {
+				background-color: magenta;
+			}
+			
+			.gray {
+				background-color: gray;
+			}
+		</style>
+		
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<script>
+			var css = "black";
+			$(document).ready(function() {
+				var $mainTable = $("<table>");
+				for(var $j = 0; $j < 20; $j++) {
+					var $tbody = $mainTable.append("<tr>");
+					for(var $i = 0; $i < 20; $i++) {
+						if($j < 9 && $i < 9) {
+							$tbody.append("<td id=0" + ($j + 1) + "0" + ($i + 1) + "></td>");
+						}
+						else if($j < 9) {
+							$tbody.append("<td id=0" + ($j + 1) + "" + ($i + 1) + "></td>");
+						}
+						else if($i < 9) {
+							$tbody.append("<td id=" + ($j + 1) + "0" + ($i + 1) + "></td>");
+						}
+						else {
+							$tbody.append("<td id=" + ($j + 1) + "" + ($i + 1) + "></td>");
+						}
+					}
+					
+					$tbody.append("</tr>");
+				}
+				
+				$mainTable.appendTo("#mainTab");
+				
+				$("#strip").click(function() { 
+					$("#strip td").css("border-color", "black");
+					$(event.target).css("border-color", "hotpink");
+					css = $(event.target).attr("class");
+					var cell;
+					
+					for(var $j = 0; $j < 20; $j++) {
+						for(var $i = 0; $i < 20; $i++) {
+							if($j < 9 && $i < 9) {
+								cell = ("0" + ($j + 1) + "0" + ($i + 1));
+							}
+							else if($j < 9) {
+								cell = ("0" + ($j + 1) + "" + ($i + 1));
+							}
+							else if($i < 9) {
+								cell = ("" + ($j + 1) + "0" + ($i + 1));
+							}
+							else {
+								cell = ("" + ($j + 1) + "" + ($i + 1));
+							}
+							if(document.getElementById(cell).classList.length > 0) {
+								$(document.getElementById(cell)).attr("class", $(event.target).attr("class"));
+							}
+						}
+					}
+				});
+				
+				$("#mainTab").click(function() {
+					$(event.target).toggleClass(css);
+					var row = parseInt(event.target.id.substr(0, 2));
+					var col = parseInt(event.target.id.substr(2, 2));
+					var cell = event.target.id;
+					
+					if(col == 1) {				//left column
+						if(row == 1) {			//top left
+							col++;				//cell to right
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col--;
+							row++;				//cell under
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							cell = "#0" + row.toString() + "0" + col.toString();
+							$(cell).toggleClass(css);
+						}
+						else if(row == 20) {	//bottom left
+							col++;				//cell to right
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col--;
+							row--;				//cell above
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+						}
+						else {
+							col++;	//cell to right
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col--;
+							row++;	//cell under
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							row--;
+							row--;	//cell above
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+						}
+					}
+					else if(col == 20) {		//right column
+						if(row == 1) {			//top right
+							col--;	//cell to left
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col++;
+							row++;	//cell below
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+						}
+						else if(row == 20) {			//bottom right
+							col--;	//cell to left
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col++;
+							row--;	//cell above
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+						}
+						else {
+							col--;	//cell to left
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							col++;
+							row++;	//cell under
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+							
+							row--;
+							row--;	//cell above
+							if(col < 10 && row < 10) {
+								cell = "#0" + row.toString() + "0" + col.toString();
+							}
+							else if(col < 10) {
+								cell = "#" + row.toString() + "0" + col.toString();
+							}
+							else if(row < 10) {
+								cell = "#0" + row.toString() + "" + col.toString();
+							}
+							else {
+								cell = "#" + row.toString() + "" + col.toString();
+							}
+							$(cell).toggleClass(css);
+						}
+					}
+					else if(row == 1) {			//top row
+						col++;	//cell to right
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col--;
+						col--;	//cell to left
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col++;
+						row++;	//cell under
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+					}
+					else if(row == 20) {		//bottom row
+						col++;	//cell to right
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col--;
+						col--;	//cell to left
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col++;
+						row--;	//cell above
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+					}
+					else {
+						col++;	//cell to right
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col--;
+						col--;	//cell to left
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						col++;
+						row++;	//cell under
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+						
+						row--;
+						row--;	//cell above
+						if(col < 10 && row < 10) {
+							cell = "#0" + row.toString() + "0" + col.toString();
+						}
+						else if(col < 10) {
+							cell = "#" + row.toString() + "0" + col.toString();
+						}
+						else if(row < 10) {
+							cell = "#0" + row.toString() + "" + col.toString();
+						}
+						else {
+							cell = "#" + row.toString() + "" + col.toString();
+						}
+						$(cell).toggleClass(css);
+					}
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<h1>Chase Howard</h1>
+		
+		<div id="steps">
+			<h1>10</h1>
+		</div>
+		
+		<div id=strip>
+			<table>
+				<tr></tr>
+				<td id="_1" class="black"></td>
+				<td id="_2" class="red"></td>
+				<td id="_3" class="blue"></td>
+				<td id="_4" class="yellow"></td>
+				<td id="_5" class="green"></td>
+				<td id="_6" class="purple"></td>
+				<td id="_7" class="orange"></td>
+				<td id="_8" class="cyan"></td>
+				<td id="_9" class="magenta"></td>
+				<td id="_10" class="gray"></td>
+			</table>
+		</div>
+		
+		<br>
+		
+		<div id=mainTab>
+			
+		</div>
+	</body>
+</html>
